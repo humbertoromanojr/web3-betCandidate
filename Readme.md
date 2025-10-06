@@ -1,8 +1,6 @@
 <h1 align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1xWcDK44QwrfxFbPvMYaDzCV_19nkRZgg" alt="" width="100%" border="0" />
+  <img src="https://drive.google.com/uc?export=view&id=1jw6FbGq4A-5emirHiu5V0lIrDHNMfTlp" alt="" width="100%" border="0" />
 <br>
-
-# betCandidate WEB 3.0
 
 </h1>
 
