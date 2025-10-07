@@ -33,7 +33,7 @@ contract BetCandidate {
         dispute = Dispute({
             candidate1: "Palmeiras",
             candidate2: "Flamengo",
-            image1: "https://www.vhv.rs/dpng/d/593-5932129_se-palmeiras-hd-logo-png-escudo-png-palmeiras.png",
+            image1: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/300px-Palmeiras_logo.svg.png",
             image2: "https://logoeps.com/wp-content/uploads/2012/11/clube-de-regatas-do-flamengo-logo-vector.png",
             total1: 0,
             total2: 0,
