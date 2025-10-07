@@ -1,9 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 export default function Bet() {
+  const { push } = useRouter();
+
   const [message, setMessage] = useState("");
 
   const backgroundImageStyle = {
@@ -20,6 +23,13 @@ export default function Bet() {
     alignItems: "center",
     justifyContent: "space-between",
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem("addressWallet")) {
+      setMessage("Metamask not connected or authorization!");
+      return push("/");
+    }
+  }, []);
 
   function handleConnectWallet() {
     console.log("connect wallet");
