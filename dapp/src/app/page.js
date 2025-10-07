@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { push } = useRouter();
+
+  const [message, setMessage] = useState("");
 
   const backgroundImageStyle = {
     backgroundImage: "url(/campeonato-brasileiro.jpg)",
@@ -63,7 +66,7 @@ export default function Home() {
                 Connect with Metamask
               </button>
             </div>
-            <p className="ml-3 mt-4 mx-4 text-light">message</p>
+            <p className="ml-3 mt-4 mx-4 text-light">{message}</p>
           </div>
           <div className="col-7 "></div>
         </div>

@@ -1,6 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Head from "next/head";
 
 export default function Bet() {
+  const [message, setMessage] = useState("");
+
   const backgroundImageStyle = {
     backgroundImage: "url(/campeonato-brasileiro.jpg)",
     backgroundSize: "cover",
@@ -84,7 +89,7 @@ export default function Bet() {
         </div>
         <div className="row align-items-center">
           <div className="col-12">
-            <p className="text-light mx-auto">message</p>
+            <p className="text-light mx-auto">{message}</p>
           </div>
         </div>
       </div>
