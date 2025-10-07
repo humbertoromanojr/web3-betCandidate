@@ -4,6 +4,8 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 
+import { doLogin } from "./services/Web3Service";
+
 export default function Home() {
   const { push } = useRouter();
 
@@ -25,7 +27,14 @@ export default function Home() {
   };
 
   function handleConnectWallet() {
-    push("/bet");
+    setMessage("Connecting to wallet...please wait...");
+
+    doLogin()
+      .then((account) => push("/bet"))
+      .catch((err) => {
+        console.error(err);
+        setMessage("Home - Login:", err.message);
+      });
   }
 
   return (
@@ -66,32 +75,13 @@ export default function Home() {
                 Connect with Metamask
               </button>
             </div>
-            <p className="ml-3 mt-4 mx-4 text-light">{message}</p>
           </div>
           <div className="col-7 "></div>
         </div>
         <div className="row flex-lg-row w-100 ">
           <div className="col-2"></div>
-          <div className="col-4 d-block img-fluid text-center">
-            <img
-              src="/logo-palmeiras.png"
-              alt="logo do palmeiras"
-              width={160}
-              height={160}
-              className=" "
-            />
-          </div>
-          <div className="col-4 d-block img-fluid text-center">
-            <img
-              src="/logo-flamengo.png"
-              alt="logo do palmeiras"
-              width={160}
-              height={160}
-              className="w-10 h-10"
-            />
-          </div>
-          <div className="col-2"></div>
         </div>
+        <p className="ml-3 mx-4 mt-4 p-1 fw-bold text-light">{message}</p>
       </div>
       <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top bottom-0">
         <p className="text-center text-light">© 2025 BetCandidate, Inc</p>
