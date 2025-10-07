@@ -41,7 +41,7 @@ export default function Home() {
     <>
       <div
         style={backgroundImageStyle}
-        className="container d-block background-color='#0f1221' align-items-center justify-content-center mx-lg-auto px-4 py-4"
+        className="container d-block background-color='#0f1221' align-items-center justify-content-center mx-lg-auto"
       >
         <Head>
           <title>BetCandidate | Login</title>
@@ -82,29 +82,30 @@ export default function Home() {
           <div className="col-2"></div>
         </div>
         <p className="ml-3 mx-4 mt-4 p-1 fw-bold text-light">{message}</p>
+        <footer className="d-flex flex-wrap text-center justify-content-center position-fixed bottom-0">
+          <p className="text-center mt-2 text-light">
+            © 2025 BetCandidate, Inc
+          </p>
+
+          <ul className="nav col-12 justify-content-end list-unstyled d-flex ">
+            <li className="nav-item">
+              <a href="/" className="nav-link text-light px-4">
+                Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link px-4">
+                Classification
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="/about" className="nav-link px-4">
+                About
+              </a>
+            </li>
+          </ul>
+        </footer>
       </div>
-      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top bottom-0">
-        <p className="text-center text-light">© 2025 BetCandidate, Inc</p>
-        <div className="col-4"></div>
-        <ul className="nav col-5 justify-content-end list-unstyled d-flex">
-          <li className="nav-item">
-            <a href="/" className="nav-link text-light px-4">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link px-4">
-              Classification
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/about" className="nav-link px-4">
-              About
-            </a>
-          </li>
-        </ul>
-        <div className="col-1"></div>
-      </footer>
     </>
   );
 }

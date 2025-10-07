@@ -1,13 +1,27 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
+import Web3 from "web3";
+
+import { getDispute } from "../services/Web3Service";
 
 export default function Bet() {
   const { push } = useRouter();
 
   const [message, setMessage] = useState("");
+  const [dispute, setDispute] = useState({
+    candidate1: "Loading...",
+    candidate2: "Loading...",
+    image1:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/300px-Palmeiras_logo.svg.png",
+    image2:
+      "https://logoeps.com/wp-content/uploads/2012/11/clube-de-regatas-do-flamengo-logo-vector.png",
+    total1: 0,
+    total2: 0,
+    winner: 0,
+  });
 
   const backgroundImageStyle = {
     backgroundImage: "url(/campeonato-brasileiro.jpg)",
@@ -29,11 +43,19 @@ export default function Bet() {
       setMessage("Metamask not connected or authorization!");
       return push("/");
     }
-  }, []);
 
-  function handleConnectWallet() {
-    console.log("connect wallet");
-  }
+    setMessage("Getting dispute data...please wait...");
+
+    getDispute()
+      .then((dispute) => {
+        setDispute(dispute);
+        setMessage("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage(err.message);
+      });
+  }, []);
 
   return (
     <>
@@ -67,33 +89,39 @@ export default function Bet() {
           <div className="col-2"></div>
           <div className="col-4 d-block text-center">
             <img
-              src="/logo-palmeiras.png"
-              alt="logo do palmeiras"
+              src={dispute.image1}
+              alt={dispute.candidate1}
               width={160}
               height={160}
               className="img-fluid"
             />
             <button className="btn btn-primary my-2 d-block mx-auto">
-              Voto no Palmeiras
+              Voto no {dispute.candidate1}
             </button>
             <span
               className="badge text-light my-2 text-bg-secondary d-block mx-auto"
               styles={{ width: 200 }}
             >
-              0 POL bet on
+              {Web3.utils.fromWei(dispute.total1, "ether")} POL bet on
             </span>
           </div>
           <div className="col-4 d-block img-fluid text-center">
             <img
-              src="/logo-flamengo.png"
-              alt="logo do palmeiras"
+              src={dispute.image2}
+              alt={dispute.candidate2}
               width={160}
               height={160}
               className="img-fluid"
             />
             <button className="btn btn-primary my-2 d-block mx-auto">
-              Voto no Flamengo
+              Voto no {dispute.candidate2}
             </button>
+            <span
+              className="badge text-light my-2 text-bg-secondary d-block mx-auto"
+              styles={{ width: 200 }}
+            >
+              {Web3.utils.fromWei(dispute.total2, "ether")} POL bet on
+            </span>
           </div>
           <div className="col-2"></div>
         </div>
@@ -102,29 +130,30 @@ export default function Bet() {
             <p className="text-light mx-auto">{message}</p>
           </div>
         </div>
+        <footer className="d-flex flex-wrap text-center justify-content-center position-fixed bottom-0">
+          <p className="text-center mt-2 text-light">
+            © 2025 BetCandidate, Inc
+          </p>
+
+          <ul className="nav col-12 justify-content-end list-unstyled d-flex ">
+            <li className="nav-item">
+              <a href="/" className="nav-link text-light px-4">
+                Home
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="#" className="nav-link px-4">
+                Classification
+              </a>
+            </li>
+            <li className="nav-item">
+              <a href="/about" className="nav-link px-4">
+                About
+              </a>
+            </li>
+          </ul>
+        </footer>
       </div>
-      <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top bottom-0">
-        <p className="text-center text-light">© 2025 BetCandidate, Inc</p>
-        <div className="col-4"></div>
-        <ul className="nav col-5 justify-content-end list-unstyled d-flex">
-          <li className="nav-item">
-            <a href="/" className="nav-link text-light px-4">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link px-4">
-              Classification
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="/about" className="nav-link px-4">
-              About
-            </a>
-          </li>
-        </ul>
-        <div className="col-1"></div>
-      </footer>
     </>
   );
 }
