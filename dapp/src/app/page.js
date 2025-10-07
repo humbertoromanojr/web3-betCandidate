@@ -1,6 +1,11 @@
+"use client";
+
 import Head from "next/head";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const { push } = useRouter();
+
   const backgroundImageStyle = {
     backgroundImage: "url(/campeonato-brasileiro.jpg)",
     backgroundSize: "cover",
@@ -17,7 +22,7 @@ export default function Home() {
   };
 
   function handleConnectWallet() {
-    console.log("connect wallet");
+    push("/bet");
   }
 
   return (
@@ -46,6 +51,7 @@ export default function Home() {
             <div className="d-grid gap-2 d-md-flex justify-content-md-start py-5 mt-5">
               <button
                 type="button"
+                onClick={handleConnectWallet}
                 className="btn btn-primary btn-sm mx-4 px-4 me-md-2"
               >
                 <img
@@ -63,21 +69,21 @@ export default function Home() {
         </div>
         <div className="row flex-lg-row w-100 ">
           <div className="col-2"></div>
-          <div className="col-4 d-block img-fluid ">
+          <div className="col-4 d-block img-fluid text-center">
             <img
               src="/logo-palmeiras.png"
               alt="logo do palmeiras"
-              width={190}
-              height={190}
+              width={160}
+              height={160}
               className=" "
             />
           </div>
-          <div className="col-4 d-block img-fluid">
+          <div className="col-4 d-block img-fluid text-center">
             <img
               src="/logo-flamengo.png"
               alt="logo do palmeiras"
-              width={190}
-              height={190}
+              width={160}
+              height={160}
               className="w-10 h-10"
             />
           </div>
@@ -94,8 +100,8 @@ export default function Home() {
             </a>
           </li>
           <li className="nav-item">
-            <a href="/bet" className="nav-link px-4">
-              Bet
+            <a href="#" className="nav-link px-4">
+              Classification
             </a>
           </li>
           <li className="nav-item">
