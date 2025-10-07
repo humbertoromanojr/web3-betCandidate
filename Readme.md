@@ -2,6 +2,8 @@
   <img src="https://drive.google.com/uc?export=view&id=1jw6FbGq4A-5emirHiu5V0lIrDHNMfTlp" alt="" width="100%" border="0" />
 <br>
 
+BetCandidate
+
 </h1>
 
 > Status from Project: <img src="https://drive.google.com/uc?export=view&id=1Tak2fjuusuwdzNI_rwhPqLHGVLVKNTm1" alt="" width="32" border="0" /> F I N I S H E D <img src="https://drive.google.com/uc?export=view&id=1Tak2fjuusuwdzNI_rwhPqLHGVLVKNTm1" alt="" width="32" border="0" />
@@ -27,11 +29,7 @@
 
 - [Web3](https://github.com/web3/web3.js)
 
-- [Kit Wallet Avatar](https://github.com/fluent-wallet/avatar)
-
 - [Dotenv](https://github.com/motdotla/dotenv)
-
-- [Date-fns](https://date-fns.org)
 
 <br />
 
@@ -80,6 +78,12 @@ To generate the file content directly in the project via the terminal, use:
 > Create gif with Gimp
 
 - https://www.youtube.com/watch?v=mp09qdwIKWE
+
+> Logos
+
+- https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Palmeiras_logo.svg/300px-Palmeiras_logo.svg.png
+  <br />
+- https://logoeps.com/wp-content/uploads/2012/11/clube-de-regatas-do-flamengo-logo-vector.png
 
 ##
 
