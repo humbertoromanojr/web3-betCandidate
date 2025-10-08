@@ -31,3 +31,15 @@ export async function getDispute() {
   const contract = getContract();
   return await contract.methods.dispute().call();
 }
+
+export async function placeBet(candidate, amountInEth) {
+  const contract = getContract();
+  return await contract.methods.bet(candidate).send({
+    value: Web3.utils.toWei(amountInEth, "ether"),
+  });
+}
+
+export async function finishDispute(winner) {
+  const contract = getContract();
+  return await contract.methods.bet(winner).send();
+}
