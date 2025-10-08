@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Head from "next/head";
 import Web3 from "web3";
 
-import { getDispute } from "../services/Web3Service";
+import { getDispute, placeBet } from "../services/Web3Service";
 
 export default function Bet() {
   const { push } = useRouter();
@@ -57,6 +57,24 @@ export default function Bet() {
       });
   }, []);
 
+  function handleBet(candidate) {
+    setMessage("Connecting the wallet...please wait...");
+
+    const amount = prompt("Amount in POL to bet?", "1");
+
+    placeBet(candidate, amount)
+      .then(() => {
+        alert(
+          "Bet successfully received. It may take a minute to appear in the system!"
+        );
+        setMessage("");
+      })
+      .catch((err) => {
+        console.error(err);
+        setMessage(err.message);
+      });
+  }
+
   return (
     <>
       <div
@@ -76,10 +94,16 @@ export default function Bet() {
               On-chain bets on the 2025 Brazilian Championship, on the top two
               teams in the standings.
             </p>
-            <p className="lead text-light mx-4 mt-4">
-              You have until one day before the last round of the Brazilian
-              championship to place your bets.
-            </p>
+            {dispute.winner == 0 ? (
+              <p className="lead text-light mx-4 mt-4">
+                You have until one day before the last round of the Brazilian
+                championship to place your bets.
+              </p>
+            ) : (
+              <p className="lead text-light mx-4 mt-4">
+                Contest closed. See the winner below and request your prize.
+              </p>
+            )}
             <div className="d-grid gap-2 d-md-flex justify-content-md-start py-5 mt-5"></div>
             <p className="ml-3 mt-2 mx-4 text-light"></p>
           </div>
@@ -87,42 +111,76 @@ export default function Bet() {
         </div>
         <div className="row flex-lg-row w-100 mb-4">
           <div className="col-2"></div>
-          <div className="col-4 d-block text-center">
-            <img
-              src={dispute.image1}
-              alt={dispute.candidate1}
-              width={160}
-              height={160}
-              className="img-fluid"
-            />
-            <button className="btn btn-primary my-2 d-block mx-auto">
-              Voto no {dispute.candidate1}
-            </button>
-            <span
-              className="badge text-light my-2 text-bg-secondary d-block mx-auto"
-              styles={{ width: 200 }}
-            >
-              {Web3.utils.fromWei(dispute.total1, "ether")} POL bet on
-            </span>
-          </div>
-          <div className="col-4 d-block img-fluid text-center">
-            <img
-              src={dispute.image2}
-              alt={dispute.candidate2}
-              width={160}
-              height={160}
-              className="img-fluid"
-            />
-            <button className="btn btn-primary my-2 d-block mx-auto">
-              Voto no {dispute.candidate2}
-            </button>
-            <span
-              className="badge text-light my-2 text-bg-secondary d-block mx-auto"
-              styles={{ width: 200 }}
-            >
-              {Web3.utils.fromWei(dispute.total2, "ether")} POL bet on
-            </span>
-          </div>
+          {dispute.winner == 0 && dispute.winner == 1 ? (
+            <div className="col-4 d-block text-center">
+              <img
+                src={dispute.image1}
+                alt={dispute.candidate1}
+                width={160}
+                height={160}
+                className="img-fluid"
+              />
+              {dispute.winner == 0 ? (
+                <button
+                  className="btn btn-primary my-2 d-block mx-auto"
+                  onClick={() => handleBet(1)}
+                >
+                  I bet on this team
+                </button>
+              ) : (
+                <button
+                  className="btn btn-primary my-2 d-block mx-auto"
+                  onClick={() => handleBet(1)}
+                >
+                  Get my prize
+                </button>
+              )}
+
+              <span
+                className="badge text-light my-2 text-bg-secondary d-block mx-auto"
+                styles={{ width: 200 }}
+              >
+                {Web3.utils.fromWei(dispute.total1, "ether")} POL bet on
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
+          {dispute.winner == 0 && dispute.winner == 2 ? (
+            <div className="col-4 d-block img-fluid text-center">
+              <img
+                src={dispute.image2}
+                alt={dispute.candidate2}
+                width={160}
+                height={160}
+                className="img-fluid"
+              />
+              {dispute.winner == 0 ? (
+                <button
+                  className="btn btn-primary my-2 d-block mx-auto"
+                  onClick={() => handleBet(2)}
+                >
+                  I bet on this team
+                </button>
+              ) : (
+                <button
+                  className="btn btn-primary my-2 d-block mx-auto"
+                  onClick={() => handleBet(2)}
+                >
+                  Get my prize
+                </button>
+              )}
+
+              <span
+                className="badge text-light my-2 text-bg-secondary d-block mx-auto"
+                styles={{ width: 200 }}
+              >
+                {Web3.utils.fromWei(dispute.total2, "ether")} POL bet on
+              </span>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="col-2"></div>
         </div>
         <div className="row align-items-center">
@@ -134,7 +192,6 @@ export default function Bet() {
           <p className="text-center mt-2 text-light">
             © 2025 BetCandidate, Inc
           </p>
-
           <ul className="nav col-12 justify-content-end list-unstyled d-flex ">
             <li className="nav-item">
               <a href="/" className="nav-link text-light px-4">
