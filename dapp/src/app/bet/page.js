@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Head from "next/head";
 import Web3 from "web3";
 
-import { getDispute, placeBet } from "../services/Web3Service";
+import { getDispute, placeBet, claimPrize } from "../services/Web3Service";
 
 export default function Bet() {
   const { push } = useRouter();
@@ -75,6 +75,22 @@ export default function Bet() {
       });
   }
 
+  function handleClaim() {
+    setMessage("Connecting the wallet. Claiming rewards...please wait...");
+
+    claimPrize()
+      .then(() => {
+        alert(
+          "Prize successfully collected. It may take a minute to appear n your wallet!"
+        );
+        setMessage("");
+      })
+      .catch((err) => {
+        console.error(err.data ? err.data : err);
+        setMessage(err.data ? err.data.message : err.message);
+      });
+  }
+
   return (
     <>
       <div
@@ -120,7 +136,7 @@ export default function Bet() {
                 height={160}
                 className="img-fluid"
               />
-              {dispute.winner == 0 ? (
+              {dispute.winner == 1 ? (
                 <button
                   className="btn btn-primary my-2 d-block mx-auto"
                   onClick={() => handleBet(1)}
@@ -130,7 +146,7 @@ export default function Bet() {
               ) : (
                 <button
                   className="btn btn-primary my-2 d-block mx-auto"
-                  onClick={() => handleBet(1)}
+                  onClick={handleClaim}
                 >
                   Get my prize
                 </button>
@@ -155,7 +171,7 @@ export default function Bet() {
                 height={160}
                 className="img-fluid"
               />
-              {dispute.winner == 0 ? (
+              {dispute.winner == 2 ? (
                 <button
                   className="btn btn-primary my-2 d-block mx-auto"
                   onClick={() => handleBet(2)}
@@ -165,7 +181,7 @@ export default function Bet() {
               ) : (
                 <button
                   className="btn btn-primary my-2 d-block mx-auto"
-                  onClick={() => handleBet(2)}
+                  onClick={handleClaim}
                 >
                   Get my prize
                 </button>
