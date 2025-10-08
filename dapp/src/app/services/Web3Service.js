@@ -43,3 +43,8 @@ export async function finishDispute(winner) {
   const contract = getContract();
   return await contract.methods.bet(winner).send();
 }
+
+export async function claimPrize() {
+  const contract = getContract();
+  return await contract.methods.bet(winner).send();
+}
